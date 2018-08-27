@@ -195,7 +195,7 @@ h3 {
 }
 body,
 html {
-  background-color: #fff;
+  background-color: #ececec;
   font-family: 'Open Sans', sans-serif;
   height: 100%;
 }
@@ -285,7 +285,6 @@ p {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  background-color: #ececec;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -300,8 +299,7 @@ p {
   background-repeat: no-repeat;
   background-size: 64px;
   background-position: center 10px;
-  border-radius: 12px;
-  background-color: #fff;
+  background-color: #f7f7f7;
   -webkit-box-shadow: 2px 2px 2px #ccc;
           box-shadow: 2px 2px 2px #ccc;
   padding: 100px 0 0 0;
@@ -317,6 +315,9 @@ p {
   width: 320px;
   min-height: 100px;
   border-bottom: 1px solid #d8d6d6;
+}
+.barrel:last-child {
+  border-bottom: none;
 }
 .barrel__batch {
   border-radius: 50%;
