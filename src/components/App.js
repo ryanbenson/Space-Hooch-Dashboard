@@ -29,6 +29,37 @@ class App extends React.Component {
     fetch(this.getApiUrl())
       .then((resp) => resp.json())
       .then(function(data) {
+        // set status levels
+        data.forEach((sat) => {
+          // rank 3 = normal
+          // rank 2 = expired
+          // rank 1 = error
+          let barrel_status_ranks = [];
+
+          // rank 2 = no error
+          // rank 1 = error
+          let barrel_error_ranks = [];
+
+          sat.barrels.forEach((barrel) => {
+            if(barrel.status === 'expired') {
+              barrel_status_ranks.push(2);
+            } else if(barrel.status === 'error') {
+              barrel_status_ranks.push(1);
+            } else {
+              barrel_status_ranks.push(3);
+            }
+
+            if(barrel.errors && barrel.errors.length > 0) {
+              barrel_error_ranks.push(1);
+            } else {
+              barrel_error_ranks.push(2);
+            }
+            const lowest_rank_status = Math.min(...barrel_status_ranks);
+            const lowest_rank_errors = Math.min(...barrel_error_ranks);
+            sat.status_rank = lowest_rank_status;
+            sat.error_rank = lowest_rank_errors;
+          })
+        });
         that.setState({satellites: data});
       })
       .catch(function(err) {
@@ -50,8 +81,17 @@ class App extends React.Component {
 
   sortBy = (type) => {
     let order = 'asc';
-    if(type === 'telemetry_timestamp') order = 'desc';
-    const sorted = _.orderBy(this.state.satellites, type, order);
+    let sorted;
+    if(type === 'telemetry_timestamp') {
+       order = 'desc';
+       sorted = _.orderBy(this.state.satellites, type, order);
+    }
+    if(type === 'status') {
+      sorted = _.orderBy(this.state.satellites, 'status_rank', order);
+    }
+    if(type === 'errors') {
+      sorted = _.orderBy(this.state.satellites, 'error_rank', order);
+    }
     this.setState({satellites: sorted});
   }
 
