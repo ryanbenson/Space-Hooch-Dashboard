@@ -3,6 +3,7 @@ import _ from 'lodash';
 import Satellite from './Satellite';
 import Filter from './Filter';
 import Sorting from './Sorting';
+import Uploader from './Uploader';
 
 class App extends React.Component {
 
@@ -101,6 +102,7 @@ class App extends React.Component {
         <div className="header">
           <h1 className="header__logo">Moon Shots</h1>
           <div className="header__controls">
+            <Uploader getApiUrl={this.getApiUrl} />
             <Filter setFilter={this.setFilter} />
             <Sorting sortBy={this.sortBy} />
           </div>
