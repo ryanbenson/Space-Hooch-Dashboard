@@ -98,10 +98,16 @@ class App extends React.Component {
   render() {
     return (
       <div className="space-hooch">
-        <h1>Moon Shots</h1>
-        <Filter setFilter={this.setFilter} />
-        <Sorting sortBy={this.sortBy} />
-        {this.state.satellites.filter(this.filterSats).map(sat => <Satellite key={sat.satellite_id} index={sat.satellite_id} data={sat} />)}
+        <div className="header">
+          <h1 className="header__logo">Moon Shots</h1>
+          <div className="header__controls">
+            <Filter setFilter={this.setFilter} />
+            <Sorting sortBy={this.sortBy} />
+          </div>
+        </div>
+        <div className="content">
+          {this.state.satellites.filter(this.filterSats).map(sat => <Satellite key={sat.satellite_id} index={sat.satellite_id} data={sat} />)}
+        </div>
       </div>
     );
   }
